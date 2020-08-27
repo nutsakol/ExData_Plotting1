@@ -1,0 +1,7 @@
+library(data.table)
+dat <- fread(input = "household_power_consumption.txt", na.strings="?")
+select_dat <- subset(dat,dat$Date == "1/2/2007"|dat$Date == "2/2/2007")
+select_dat$datetime <-as.POSIXct(paste(select_dat$Date,select_dat$Time), format = "%d/%m/%Y %H:%M:%S")
+png("plot2.png", width=480, height=480)
+plot(select_dat$datetime,select_dat$Global_active_power,type="l",xlab="",ylab="Global Active Power (kilowatts)")
+dev.off()
